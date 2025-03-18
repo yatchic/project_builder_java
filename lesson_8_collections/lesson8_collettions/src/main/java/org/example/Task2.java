@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Task2 {
 //    В рамках выполнения задачи необходимо:
@@ -20,6 +17,30 @@ Set<String> convertListToSet(List<String> list){
 return result;
 }
 
+    public String minLengthName(List<String> list) {
+
+        return convertListToSet(list).stream().min(Comparator.naturalOrder()).orElse(null);
+    }
+
+    public List<String> minAndMaxLengthNames(List<String> list) {
+        Set<String> namesSet = convertListToSet(list);
+        List<String> result = new ArrayList<>();
+        result.add(namesSet.stream().min(Comparator.comparing(String::length)).orElse(null));
+        result.add(namesSet.stream().max(Comparator.comparing(String::length).reversed()).orElse(null));
+        return result;
+    }
+
+    public Set<String> removeNamesByString(List<String> list, String symbol) {
+        Set<String> namesSet = convertListToSet(list);
+        namesSet.removeIf(s -> s.contains(symbol));
+        return namesSet;
+    }
+
+    public Set<String> removeNamesByChar(List<String> list, char symbol) {
+        Set<String> namesSet = convertListToSet(list);
+        namesSet.removeIf(s -> s.indexOf(symbol) != -1);
+        return namesSet;
+    }
 
     public static void main(String[] args) {
 
@@ -30,10 +51,10 @@ return result;
         names.add("Михаил");
         names.add("Юра");
         names.add("Лена");
-        Task1 task1=new Task1();
+        Task2 task2=new Task2();
 
 
-        System.out.println( task1.reverseList(names));
+        System.out.println( task2.removeNamesByChar(names,'а'));
     }
 
 }
